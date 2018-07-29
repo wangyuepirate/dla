@@ -1,0 +1,96 @@
+
+For this assignment, only I looked at, or graded, the work.
+
+I did it something like this :
+*) I put your work into one of a number of "bins" where the
+work seemed of a similar standard.
+*) I then gave each of these "bins" a mark.
+*) I went through each piece of work again, checking if it should move
+up/down to a different bin.
+*) Some comments (lines too long etc.) were generated automagically. I check these, because
+this process is very error prone !
+*) I added some comments manually.
+
+I show the "Basic" mark for interest only - you're final mark may be substantionally different,
+after the ranking process.
+
+Some of the comments have the following key :
+[C99] Code won't compile using the -ansi flag: often // comments or similar.
+[CAPDEFS] It's traditional make #define's in C using capitals #define MAX, not #define max. 
+[FPRINTF] On exit/error, fprintf(stdeerr, ...) not via stdout & printf().
+[GLOB] Use of a global variable.
+[LINELEN] Line too long to read easily.
+[LONGFUNC] Function has too many lines to make it easily readable/understandable.
+[MAGICNUM] Use #defines, enums etc., rather than using magic numbers (e.g. if(x >= 39 is bad)
+[NESTING] Too many nested if/for/else etc to make the code easily understandable.
+[NOBRACE] if/else/for etc. with no brace.
+[WARNING WRONGLY DISABLED] You've deliberately disabled one of the compiler warnings !?
+[WARN] Warning produced by the gcc compiler.
+
+Some self-documentation e.g. an enumeration or typedef that I particularly enjoyed.
+[ENUMTYPEDEF]
+
+
+Marking Scale
+-------------
+
+
+< 50%: Doesn't work ? Doesn't compile.
+50-59%%: Works, but has many problems with the style.
+60-64%: Works and a good start on understanding the house-style guidleines.
+65-69%. Very good. Top end of what I'm expecting at this stage of the unit.
+70%+: Better than I would reasonably expect at this stage of the unit.
+
+
+General Comments
+----------------
+
+
+I would have liked to have seen (row,column) collected into a structure. Even nicer this way than a 2-cell array which many used,
+
+Some cut-and-paste code seen - including nearly identical functions to check if top/down/left/right cells are empty etc.
+
+Magic Numbers. No point in #defining SIZE 50 if you then hard-code (i <= 49) etc ?
+
+Why not use some enumerations for your switch if it's doing up/down/left/right etc ? 
+
+Not convinced that #define LOW_ROW 0 is particularly helpful. No harm I guess, but ...
+
+Some people did #define SIZE 50, then #define MIDDLE 25. Use #define MIDDLE (SIZE/2) instead.
+You should be able to change ONE #define (SIZE) and your code will work on a bigger grid. Try it.
+
+Some people passed parameters to a funtion using pointers, even if that function was only going to *read* the variables, not write them. Why not just pass a copy? For an integer etc. that's just as efficient as passing an address.
+
+No special rule, but I think most people would agree:
+a>(b-1))
+is more difficult to read/understand/parse than:
+a>=b
+
+Meanigful #defines - no point in using ASEI, CASEII, CASEIII etc. in switch statements - they are meant to document you're code & better explain what's going on e.g. LEFTEDGE, RIGHTEDGE, TOPEDGE etc.
+
+It's traditional to use CAPITALS for #defines in C. In this case, if you attempted to do:  #define width
+it would clash with a variable defined elsewhere (ncurses) & cause a compile failure. Hence the rule. 
+
+Comments for you
+----------------
+
+
+Feedback, for dla.c
+[WARN]ncurses.c: In function ‘main’:
+[WARN]ncurses.c:30:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+[WARN]   NCURS_Simplewin sw;
+[WARN]   ^~~~~~~~~~~~~~~
+[MAGICNUM]   if(side==3){
+[MAGICNUM]   case 3:
+Feedback, for ncurses.c
+[WARN]ncurses.c: In function ‘main’:
+[WARN]ncurses.c:30:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+[WARN]   NCURS_Simplewin sw;
+[WARN]   ^~~~~~~~~~~~~~~
+[MAGICNUM]     Neill_NCURS_Delay(50.0);
+[MAGICNUM]   if(side==3){
+[MAGICNUM]   case 3:
+NCurses = YES
+Initial Mark = 53
+Final Mark = 59
+[FINALCOMMENT] 2D arrays are accessed a[y][x], not c[xcenter][ycenter]. Make sure all the flags are set when using gcc especially -ansi. Enumerations/structs would help with self-documentation. Works well. Some odd indentation, e.g. in main().
